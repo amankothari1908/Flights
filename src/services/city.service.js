@@ -7,12 +7,6 @@ async function createCity(data) {
     const city = await cityRepository.create(data);
     return city;
   } catch (error) {
-    if (error.name == "TypeError") {
-      throw new AppError(
-        "Cannot create a new city object",
-        StatusCodes.INTERNAL_SERVER_ERROR
-      );
-    }
     throw new AppError(
       "Cannot create a new city object",
       StatusCodes.INTERNAL_SERVER_ERROR
@@ -20,6 +14,32 @@ async function createCity(data) {
   }
 }
 
+async function updateCity(id, data) {
+  try {
+    const response = await cityRepository.update(id, data);
+    return response;
+  } catch (error) {
+    throw new AppError(
+      "Cannot update city object",
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
+  }
+}
+
+async function destroyCity(data) {
+  try {
+    const response = await cityRepository.destroy(data);
+    return response;
+  } catch (error) {
+    throw new AppError(
+      "Cannot delete city object",
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
+  }
+}
+
 module.exports = {
   createCity,
+  updateCity,
+  destroyCity,
 };
